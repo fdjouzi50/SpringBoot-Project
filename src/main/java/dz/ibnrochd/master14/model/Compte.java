@@ -2,11 +2,11 @@ package dz.ibnrochd.master14.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,22 +22,22 @@ public class Compte {
 	
 	@Column(name = "password")
 	private String password;
-	
-	@OneToOne
-    @MapsId
-    @JoinColumn(name = "etudiant_id")
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "etudiant_id", nullable = false)
     private Etudiant etudiant;
+
 
 	public Compte() {
 		
 	}
 
-	public Compte(int id, String login, String password, Etudiant etudiant) {
+	public Compte(int id, String login, String password) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
-		this.etudiant = etudiant;
+
 		
 	}
 
@@ -64,15 +64,5 @@ public class Compte {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Etudiant getEtudiant() {
-		return etudiant;
-	}
-
-	public void setEtudiant(Etudiant etudiant) {
-		this.etudiant = etudiant;
-	}
-	
-	
 
 }

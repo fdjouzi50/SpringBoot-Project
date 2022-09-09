@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -30,8 +30,9 @@ public class Etudiant {
 	@Column(name = "prenom")
 	private String prenom;
 	
-	@OneToOne(mappedBy = "etudiant", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+	@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "etudiant")
     private Compte compte;
 	
 	@ManyToOne()
@@ -80,14 +81,6 @@ public Etudiant() {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
-	}
-
-	public Compte getCompte() {
-		return compte;
-	}
-
-	public void setCompte(Compte compte) {
-		this.compte = compte;
 	}
 
 	public Specialite getSpecialite() {

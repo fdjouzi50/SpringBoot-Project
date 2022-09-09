@@ -1,13 +1,20 @@
 package dz.ibnrochd.master14.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name = "note")
 public class Note {
-
-
-	    @Column(name = "etudiant_id")
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private int id;
+	
+        @Column(name = "etudiant_id")
 	    int etudiantId;
 
 	    @Column(name = "module_id")
@@ -20,11 +27,20 @@ public class Note {
 			
 		}
 
-		public Note(int etudiantId, int moduleId, float note) {
+		public Note(int id, int etudiantId, int moduleId, float note) {
 			super();
+			this.id = id;
 			this.etudiantId = etudiantId;
 			this.moduleId = moduleId;
 			this.note = note;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
 		}
 
 		public int getEtudiantId() {
@@ -50,6 +66,8 @@ public class Note {
 		public void setNote(float note) {
 			this.note = note;
 		}
+
+		
 
 		
 		}
